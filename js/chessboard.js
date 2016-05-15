@@ -1,0 +1,4 @@
+function ChessBoard(div, config){
+
+
+}

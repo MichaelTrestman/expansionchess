@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+  <script type="text/javascript" src="js/chessboard-0.3.0.js"></script>
+  <style type="text/css" href="css/chessboard-0.3.0.css"></style>
+  <link rel="stylesheet" type="text/css" href="css/chessboard-0.3.0.css" />
+
+<head>
+  <title>chessbaord</title>
+</head>
+
+<body>
+
+<div id="board" style="width: 600px"></div>
+
+<script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="crossorigin="anonymous">
+</script>
+
+<script type="text/javascript">
+var cfg = {
+  draggable: true,
+  dropOffBoard: 'snapback', // this is the default
+  position: 'start'
+};
+var board = ChessBoard('board', cfg);
+
+</script>
+
+</body>
+</html>
