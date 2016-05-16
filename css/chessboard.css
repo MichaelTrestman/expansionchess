@@ -1,18 +1,18 @@
 .board {
-  margin: 25%;
-
+  margin: auto;
+  width: 500px;
   border: solid 5px black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 .row {
   display: flex;
   flex-direction: row;
-  border: solid 1px gold;
   justify-content: space-around;
-
 }
+
 .square {
   height: 50px;
   width: 50px;

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+
 <html>
   <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/constants.js"></script>
@@ -14,12 +15,33 @@
 
   <link rel="stylesheet" type="text/css" href="css/pieces.css" />
 
+  <link rel="stylesheet" type="text/css" href="css/sidebar.css" />
+
   <head>
     <title>chessbaord</title>
   </head>
 
   <body>
-
+    <div id='sidebar'>
+      <div id='piece-picker'>
+        <div id='black-pieces-picker' class='vertical-row'>
+          <div class='piece side-black piece-pawn' draggable='true'></div>
+          <div class='piece side-black piece-knight' draggable='true'></div>
+          <div class='piece side-black piece-bishop' draggable='true'></div>
+          <div class='piece side-black piece-rook' draggable='true'></div>
+          <div class='piece side-black piece-queen' draggable='true'></div>
+          <div class='piece side-black piece-king' draggable='true'></div>
+        </div>
+        <div id='white-pieces-picker' class='vertical-row'>
+          <div class='piece side-white piece-pawn' draggable='true'></div>
+          <div class='piece side-white piece-knight' draggable='true'></div>
+          <div class='piece side-white piece-bishop' draggable='true'></div>
+          <div class='piece side-white piece-rook' draggable='true'></div>
+          <div class='piece side-white piece-queen' draggable='true'></div>
+          <div class='piece side-white piece-king' draggable='true'></div>
+        </div>
+      </div>
+    </div>
     <div id="board" class="board"></div>
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="crossorigin="anonymous">
@@ -27,11 +49,8 @@
     <script type="text/javascript">
 
       var cfg = {
-        height: 10,
-        width: 10,
-        draggable: true,
-        dropOffBoard: 'snapback', // this is the default
-        position: 'start'
+        height: 20,
+        width: 20
       };
 
       var board = ChessBoard.initialize('board', cfg).clean();
@@ -40,8 +59,8 @@ var side;
 var piece;
 $('.square').click(function(e){
 
-  console.log('clickity')
-  console.log(e)
+  // console.log('clickity')
+  // console.log(e)
   // side = x%2==0 ? 'white' : 'black'
   BoardFunctions.placePiece(piece, side, $(e.target))
 

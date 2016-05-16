@@ -9,7 +9,6 @@ BoardFunctions.clean = function(){
   width = config.width,
   board_container = $(selector);
 
-
   for (var i = 0; i < height; i++) {
 
     board_container.append('<div class="row" id ="row-'+i+'"></div>')
@@ -19,9 +18,13 @@ BoardFunctions.clean = function(){
     for (var j = 0; j < width; j++) {
       var squareMod = (j + rowMod)%2
       var squareColor = squareMod == 0 ? 'dark' : 'light'
-      thisRow.append('<div class="square square-' +  squareColor  +  '" id ="square-' + j + '"></div>')
+      thisRow.append('<div class="square square-' +  squareColor  +  '" id ="square-' + j + '" draggable="false"></div>')
     };
 
+    $('.board').css('height', 50 * height)
+    $('.board').css('width', 50 * width)
+
   };
+
   return this
 }

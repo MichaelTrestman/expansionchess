@@ -2,6 +2,16 @@
   height: 100%;
   width: 100%;
 }
+.piece-picker-button {
+  height: 10px;
+  width: 10px;
+}
+.side-white.piece-pawn {
+  background-image: url('../img/chesspieces/wikipedia/wP.png');
+      background-size: 50px 50px;
+    background-repeat: no-repeat;
+}
+
 
 .side-white.piece-pawn {
   background-image: url('../img/chesspieces/wikipedia/wP.png');
