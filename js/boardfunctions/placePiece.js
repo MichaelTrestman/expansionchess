@@ -20,6 +20,7 @@ BoardFunctions.placePiece = function(type, side, $square){
   };
 
   $square.append(piece);
+  return piece
 }
 
 

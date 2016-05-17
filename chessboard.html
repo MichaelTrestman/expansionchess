@@ -4,7 +4,11 @@
   <script   src="vendor/jquery.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
+
   <script type="text/javascript" src="js/boardfunctions/boardfunctions.js"></script>
+  <script type="text/javascript" src="js/boardfunctions/saveBoardToJSON.js"></script>
+
+
   <script type="text/javascript" src="js/boardfunctions/clean.js"></script>
   <script type="text/javascript" src="js/chessboard.js"></script>
   <script type="text/javascript" src="js/pieceFunctions/piecefunctions.js"></script>
@@ -35,15 +39,24 @@
       var piecePickerWhite = $('#white-pieces-picker');
       var pieceList = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];
 
+      var newPiece;
+
       pieceList.forEach(function(piece){
-        BoardFunctions.placePiece(piece, 'white', piecePickerWhite)
-        BoardFunctions.placePiece(piece, 'black', piecePickerBlack)
+
+        newPiece = BoardFunctions.placePiece(piece, 'white', piecePickerWhite);
+        $(newPiece).addClass('picker-piece');
+
+        newPiece = BoardFunctions.placePiece(piece, 'black', piecePickerBlack)
+        $(newPiece).addClass('picker-piece');
+
       })
-      BoardFunctions.placePiece('wall', 'black', piecePickerBlack)
+
+      newPiece = BoardFunctions.placePiece('wall', 'black', piecePickerBlack)
+      $(newPiece).addClass('picker-piece');
 
       var cfg = {
-        height: 12,
-        width: 12
+        height: 11,
+        width: 10
       };
       ChessBoard.initialize('board', cfg).clean();
     </script>
