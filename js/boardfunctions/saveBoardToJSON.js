@@ -16,5 +16,35 @@ BoardFunctions.saveBoardToJSON = function(){
       side: piece.dataset.side
     }
   })
-  return board
+  return JSON.stringify(board)
+}
+
+BoardFunctions.loadBoardFromJSON = function(boardJSON){
+  var board = JSON.parse(boardJSON);
+  var pieces = board.pieces;
+
+  BoardFunctions.clearBoard();
+
+  ChessBoard.initialize('board', {
+    height: board.height,
+    width: board.width
+  }).clean();
+
+  pieces.forEach(function(piece){
+    var targetSquareSelector = '.square[data-posx="' + piece.posx + '"][data-posy="' + piece.posy +'"]';
+
+    var $targetSquare = $(targetSquareSelector);
+    // console.log('targetSquare selector:')
+    // console.log(targetSquareSelector);
+
+    // console.log('$targetSquare')
+    // console.log($targetSquare)
+
+    BoardFunctions.placePiece(piece.type, piece.side, $targetSquare);
+
+  })
+
+}
+BoardFunctions.clearBoard = function(){
+  $('#board').empty();
 }

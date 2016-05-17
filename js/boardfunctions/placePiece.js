@@ -25,12 +25,7 @@ BoardFunctions.placePiece = function(type, side, $square){
 
 
 function allowDrop(ev) {
-
-  // if ($(ev.target).hasClass('square')) {
     ev.preventDefault();
-  console.log('allowing drop!')
-  // };
-
 }
 
 function drag(ev) {

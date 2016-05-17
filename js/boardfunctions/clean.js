@@ -40,8 +40,6 @@ BoardFunctions.clean = function(){
 
       thisRow.append(thisSquare);
 
-
-      // thisRow.append('<div class="square square-' +  squareColor  +  '" id ="square-' + j + '" draggable="false" ondrop="drop(event)" ondragover="allowDrop(event)"></div>')
     };
 
     $('.board').css('height', 50 * height)

@@ -10,7 +10,6 @@ ChessBoard = (function(){
     initialize(containerDiv, config){
       this.containerDiv = containerDiv;
       this.config = config;
-      console.log('initialize board')
       return this;
     },
 
