@@ -11,14 +11,37 @@ BoardFunctions.clean = function(){
 
   for (var i = 0; i < height; i++) {
 
-    board_container.append('<div class="row" id ="row-'+i+'"></div>')
-    var thisRow = $('#row-'+i)
+    var thisRowId = 'row-' + String(i)
+    var thisRow = $('<div></div>')
+      .attr('id', thisRowId)
+      .attr('class', 'row')
+      .attr('data-row', String(i));
+
+    board_container.append(thisRow);
+
     var rowMod = i%2
 
     for (var j = 0; j < width; j++) {
-      var squareMod = (j + rowMod)%2
-      var squareColor = squareMod == 0 ? 'dark' : 'light'
-      thisRow.append('<div class="square square-' +  squareColor  +  '" id ="square-' + j + '" draggable="false"></div>')
+      var squareMod = (j + rowMod)%2;
+      var squareColor = squareMod == 0 ? 'dark' : 'light';
+
+      var thisSquareID = 'square-' + String(i) + 'X' + String(j);
+      var thisSquareClass = 'square-' + squareColor;
+
+      var thisSquare = $('<div></div>')
+        .attr('id', thisSquareID)
+        .addClass('square')
+        .addClass(thisSquareClass)
+        .attr('draggable', 'false')
+        .attr('data-posX', j)
+        .attr('data-posY', i)
+        .on('drop', drop)
+        .on('dragover', allowDrop);
+
+      thisRow.append(thisSquare);
+
+
+      // thisRow.append('<div class="square square-' +  squareColor  +  '" id ="square-' + j + '" draggable="false" ondrop="drop(event)" ondragover="allowDrop(event)"></div>')
     };
 
     $('.board').css('height', 50 * height)

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 
 <html>
-  <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+  <script   src="vendor/jquery.js"></script>
   <script type="text/javascript" src="js/constants.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
   <script type="text/javascript" src="js/boardfunctions/boardfunctions.js"></script>
@@ -48,22 +48,23 @@
     </script>
     <script type="text/javascript">
 
-      var cfg = {
-        height: 11,
-        width: 10
-      };
+var cfg = {
+  height: 12,
+  width: 12
+};
 
-      var board = ChessBoard.initialize('board', cfg).clean();
+var board = ChessBoard.initialize('board', cfg).clean();
 
-var side = 'black';
-var piece = 'rook';
+
+var placeAble = false;
 
 $('.square').click(function(e){
+  if (placeAble) {
+    BoardFunctions.placePiece(piece, side, $(e.target))
+  console.log('piece placed')
+  placeAble = false;
+  }
 
-  // console.log('clickity')
-  // console.log(e)
-  // side = x%2==0 ? 'white' : 'black'
-  BoardFunctions.placePiece(piece, side, $(e.target))
 
 })
 
