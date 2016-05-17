@@ -24,50 +24,28 @@
   <body>
     <div id='sidebar'>
       <div id='piece-picker'>
-        <div id='black-pieces-picker' class='vertical-row'>
-          <div class='piece side-black piece-pawn' draggable='true'></div>
-          <div class='piece side-black piece-knight' draggable='true'></div>
-          <div class='piece side-black piece-bishop' draggable='true'></div>
-          <div class='piece side-black piece-rook' draggable='true'></div>
-          <div class='piece side-black piece-queen' draggable='true'></div>
-          <div class='piece side-black piece-king' draggable='true'></div>
-        </div>
-        <div id='white-pieces-picker' class='vertical-row'>
-          <div class='piece side-white piece-pawn' draggable='true'></div>
-          <div class='piece side-white piece-knight' draggable='true'></div>
-          <div class='piece side-white piece-bishop' draggable='true'></div>
-          <div class='piece side-white piece-rook' draggable='true'></div>
-          <div class='piece side-white piece-queen' draggable='true'></div>
-          <div class='piece side-white piece-king' draggable='true'></div>
-        </div>
+        <div id='black-pieces-picker' class='vertical-row'></div>
+        <div id='white-pieces-picker' class='vertical-row'></div>
       </div>
     </div>
     <div id="board" class="board"></div>
 
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="crossorigin="anonymous">
-    </script>
     <script type="text/javascript">
+      var piecePickerBlack = $('#black-pieces-picker');
+      var piecePickerWhite = $('#white-pieces-picker');
+      var pieceList = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];
 
-var cfg = {
-  height: 12,
-  width: 12
-};
+      pieceList.forEach(function(piece){
+        BoardFunctions.placePiece(piece, 'white', piecePickerWhite)
+        BoardFunctions.placePiece(piece, 'black', piecePickerBlack)
+      })
+      BoardFunctions.placePiece('wall', 'black', piecePickerBlack)
 
-var board = ChessBoard.initialize('board', cfg).clean();
-
-
-var placeAble = false;
-
-$('.square').click(function(e){
-  if (placeAble) {
-    BoardFunctions.placePiece(piece, side, $(e.target))
-  console.log('piece placed')
-  placeAble = false;
-  }
-
-
-})
-
+      var cfg = {
+        height: 12,
+        width: 12
+      };
+      ChessBoard.initialize('board', cfg).clean();
     </script>
   </body>
 </html>
