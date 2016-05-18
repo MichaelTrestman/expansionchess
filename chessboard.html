@@ -77,6 +77,20 @@
       };
 
       ChessBoard.initialize('board', cfg).clean();
+      BoardFunctions.currentBoardRotation = 0;
+      BoardFunctions.rotateBoard = function(rotation = 90){
+
+        BoardFunctions.currentBoardRotation += 90
+
+        var boardRotation = 'rotate(' + String(BoardFunctions.currentBoardRotation) + 'deg)'
+
+        var onBoardPiecesRotation = 'rotate(' + String(0-BoardFunctions.currentBoardRotation) + 'deg)'
+
+        var $board = $('#board').css('transform', boardRotation);
+        var $piecesOnBoardSquares = $('.square .piece').css('transform', onBoardPiecesRotation);
+      }
+
+
 
     </script>
   </body>

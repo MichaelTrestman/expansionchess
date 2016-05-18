@@ -1,5 +1,7 @@
 BoardFunctions.placePiece = function(type, side, $square){
 
+  var pieceRotation = 'rotate(' + String(0 - BoardFunctions.currentBoardRotation) + 'deg)'
+
   var piece = $("<div></div>")
     .addClass('piece')
     .addClass('piece-' + type)
@@ -9,6 +11,7 @@ BoardFunctions.placePiece = function(type, side, $square){
     .attr('data-side', side)
     .attr('data-posX', $square[0].dataset.posx)
     .attr('data-posY', $square[0].dataset.posy)
+    .css('transform', pieceRotation)
     .on('dragstart', drag);
 
   if ($square.hasClass('square')) {
