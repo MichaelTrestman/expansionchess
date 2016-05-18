@@ -1,10 +1,21 @@
+#game-loader {
+  position: fixed;
+  top: 2%;
+  right: 2%;
+  background-color: rgba(151,121,0,0.8);
+}
+
+.loader-button {
+  border: solid 2px black;
+}
+
 #sidebar {
   position: fixed;
   top: 2%;
   left: 2%;
-  background-color: rgba(102,51,0,1);
+  background-color: rgba(102,51,0,0.8);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 div#piece-picker div.vertical-row {
@@ -17,7 +28,6 @@ div#piece-picker div.vertical-row {
 div#piece-picker div.vertical-row div.piece {
   height: 50px;
   width: 50px;
-  /*background-image: url('../img/chesspieces/wikipedia/wP.png');*/
   background-size: 100%;
   background-repeat: no-repeat;
   border: solid 1px black;

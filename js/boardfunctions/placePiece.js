@@ -28,13 +28,36 @@ function allowDrop(ev) {
     ev.preventDefault();
 }
 
-function drag(ev) {
-    var pieceData = ev.target.dataset;
+function isPieceClass(c){
+  return c.match(/piece-/);
+}
 
-    ev.originalEvent.dataTransfer.setData('piece-side', pieceData.side);
-    ev.originalEvent.dataTransfer.setData('piece-type', pieceData.type);
-    ev.originalEvent.dataTransfer.setData('piece-posX', pieceData.posx);
-    ev.originalEvent.dataTransfer.setData('piece-posY', pieceData.posy);
+function drag(ev) {
+
+  var pieceData = ev.target.dataset;
+
+  if(!(pieceData.type == 'wall') ) {
+
+    var imgPath = $(ev.target).css('background-image').split('"')[1].split('file:///')[1];
+
+    imgPath = imgPath.split('chessboard_new/')[1]
+
+    console.log(imgPath)
+
+    var img = $("<img></img>").attr('src', imgPath)[0];
+
+
+    // ev.originalEvent.dataTransfer.setDragImage( $(ev.target).clone().css('border', 'solid 10px pink')[0] ,50,50);
+    ev.originalEvent.dataTransfer.setDragImage(img,50,50);
+
+  }
+
+
+
+  ev.originalEvent.dataTransfer.setData('piece-side', pieceData.side);
+  ev.originalEvent.dataTransfer.setData('piece-type', pieceData.type);
+  ev.originalEvent.dataTransfer.setData('piece-posX', pieceData.posx);
+  ev.originalEvent.dataTransfer.setData('piece-posY', pieceData.posy);
 }
 
 function drop(ev) {
@@ -47,6 +70,7 @@ function drop(ev) {
 
 
     var oldPiecePosX = ev.originalEvent.dataTransfer.getData('piece-posX');
+
     var oldPiecePosY = ev.originalEvent.dataTransfer.getData('piece-posY');
 
     var oldPieceSelector = '.piece';

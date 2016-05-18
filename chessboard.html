@@ -29,6 +29,25 @@
       </div>
     </div>
 
+    <div id='game-loader'>
+    </div>
+    <script type="text/javascript">
+      var $gameLoader = $('#game-loader')
+      $.each(StartingBoardJSON, function(board, jsn){
+
+        var $loadButton = $('<div>' +  board  + '</div>')
+          .attr('class', '.loader-button')
+          .click(function(){
+            BoardFunctions.loadBoardFromJSON(StartingBoardJSON[board])
+          })
+
+        $gameLoader.append($loadButton[0])
+
+
+      })
+    </script>
+
+
     <div id="board" class="board"></div>
 
     <script type="text/javascript">

@@ -1,6 +1,21 @@
-BoardFunctions.clean = function(){
+BoardFunctions.clean = function(args={}){
+
+  $('#board').empty();
+
+  $('.square .piece, .square').remove();
+
+  if (!!args.height) config.height = args.height;
+  if (!!args.width) config.width = args.width;
+
 
   config = this.config;
+
+  if ( !!args.height && !!args.width){
+    config = args
+  }
+
+
+
   containerDiv = this.containerDiv;
 
   var selector = '#' + containerDiv;
