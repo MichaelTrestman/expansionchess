@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>d3 trees</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <style type="text/css">
+
+  </style>
+</head>
+<body>
+  <div class='container'>
+    <div class='row panel'>
+      <div id='sidebar' class='sidebar'>
+        <p>
+          click to highlight or unhighlight traits
+        </p>
+        <ul id='trait-list' class='no-list-styles'>
+
+        </ul>
+      <div id='info-panel' class='panel '>
+
+
+  <script src="./d3.v3.js"></script>
+  <script src="./treeData.js"></script>
+  <script src="./treeData2.js"></script>
+  <script src="./traitMapper.js"></script>
+  <script type="text/javascript" src='traitMapDisplay.js'></script>
+  <script type="text/javascript" src='traitMapDisplay-traits-taxa-and-colors.js'></script>
+  <script type="text/javascript" src ='traitMapDisplay-displayTraitColorRings.js'></script>
+  <script type="text/javascript" src='traitMapDisplay-treeLayout.js'>
+  </script>
+  <script type="text/javascript" src = 'traitMapDisplay-initialize.js'></script>
+  <script type="text/javascript" src='view-pan.js'></script>
+  <script type="text/javascript">
+
+    TraitMapDisplay.mapSimpleTraitAttributions();
+    TraitMapDisplay.initialize();
+    TraitMapDisplay.treeLayout.update(TraitMapper.getMappedTree());
+  </script>
+  <!-- KISSmetrics tracking snippet -->
+  <script type="text/javascript">var _kmq = _kmq || [];
+  var _kmk = _kmk || 'd53357fd6eb0bfd48267c5fcac45ca56ac06f159';
+  function _kms(u){
+    setTimeout(function(){
+      var d = document, f = d.getElementsByTagName('script')[0],
+      s = d.createElement('script');
+      s.type = 'text/javascript'; s.async = true; s.src = u;
+      f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+  _kms('//i.kissmetrics.com/i.js');
+  _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+  </script>
+</body>
+</html>
+

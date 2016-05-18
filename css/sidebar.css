@@ -1,10 +1,16 @@
-#game-loader {
+html {
+  background-color: rgba(151,121,0,0.1);
+}
+#rightSidebar {
   position: fixed;
   top: 2%;
   right: 2%;
   background-color: rgba(151,121,0,0.8);
 }
 
+.rotate-button {
+  border: solid 2px black;
+}
 .loader-button {
   border: solid 2px black;
 }

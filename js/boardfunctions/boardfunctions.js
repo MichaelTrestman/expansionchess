@@ -1,1 +1,2 @@
 var BoardFunctions = {}
+var PieceFunctions = {}
