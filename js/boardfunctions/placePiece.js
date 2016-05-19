@@ -2,7 +2,7 @@ BoardFunctions.placePiece = function(type, side, $square){
 
   var pieceRotation = 'rotate(' + String(0 - BoardFunctions.currentBoardRotation) + 'deg)'
 
-  var piece = $("<div></div>")
+  var $piece = $("<div></div>")
     .addClass('piece')
     .addClass('piece-' + type)
     .addClass('side-' + side)
@@ -22,9 +22,22 @@ BoardFunctions.placePiece = function(type, side, $square){
     throw 'Target is not a square!!!'
   };
 
-  $square.append(piece);
-  return piece
+  $square.append($piece);
+
+
+  $piece.click(function(e){
+    $thisPiece = $(e.target);
+    PieceFunctions.newPiece( $thisPiece );
+    PieceFunctions.activate( $thisPiece );
+    
+  })
+
+
+  PieceFunctions.clearActiveSquares()
+  return $piece
 }
+
+
 
 
 function allowDrop(ev) {

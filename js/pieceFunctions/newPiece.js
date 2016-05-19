@@ -1,13 +1,59 @@
-PieceFunctions.newPiece = function (type, side){
-  this.side = side;
-  this.type = type;
-  this.img = PieceFunction.getImage(type, side);
-  this.moves = PieceFunction.setPieceMoveFromMoveRules(type);
+PieceFunctions.newPiece = function ($el){
 
+  this.functions = PieceFunctions;
 
-  this.highLightHomeSpace = function(){
-  	
+  if (!!$el){
+  	this.$el = $el;
+  	this.side = $el.data('side');
+  	this.type = $el.data('type');
+
   }
 
+
+  this.getImage = function(){
+
+  }
+
+  this.img = this.getImage(this.type, this.side);
+
+    
+  this.$el;
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  this.assign$El = function($el){
+  	this.$el = $el;
+  }
+
+
+  
+  
+
+  return this;
 
 }

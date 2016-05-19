@@ -51,7 +51,8 @@ BoardFunctions.clean = function(args={}){
         .attr('data-posX', j)
         .attr('data-posY', i)
         .on('drop', drop)
-        .on('dragover', allowDrop);
+        .on('dragover', allowDrop)
+        .on('click', BoardFunctions.squareClick);
 
       thisRow.append(thisSquare);
 

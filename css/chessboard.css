@@ -1,3 +1,11 @@
+
+.square.movable {
+  background-color: rgba( 200, 200, 0,10);
+}
+.square.active-home-square {
+  background-color: rgba( 225, 0, 0,10);
+}
+
 .board {
   margin: 10%;
   width: 500px;
