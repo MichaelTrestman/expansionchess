@@ -38,7 +38,8 @@ PieceFunctions.activate = function($piece){
 }
 
 PieceFunctions.friendlyPiece = function($targetPiece){ return false }
-PieceFunctions.trySquare = function($piece, direction, coordinates, killOnly = false, moveOnly = false){
+
+PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates, killOnly = false, moveOnly = false){
 
 	$targetSquare = BoardFunctions.squareSelector[direction](coordinates);
 	
@@ -51,19 +52,23 @@ PieceFunctions.trySquare = function($piece, direction, coordinates, killOnly = f
 	
 	if (killOnly){
 		if (targetPiecePresent) {
-			$targetSquare.addClass('killable')
+			$targetSquare.addClass('killable');
+			return $targetSquare;
 		}
 		
 	} else if (moveOnly) {
 		if (!targetPiecePresent) {
-			$targetSquare.addClass('movable')
+			$targetSquare.addClass('movable');
+			return $targetSquare;
 		}
 	} else {
 		
 		if (targetPiecePresent) {
 			$targetSquare.addClass('killable')
+			return null;
 		} else {
 			$targetSquare.addClass('movable')
+			return $targetSquare;
 		}
 	}
 
@@ -84,10 +89,10 @@ PieceFunctions.highLightAvailableMoves = {
 		var $targetPiece;
 
 		PieceFunctions.cardinalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($piece, direction, coordinates, false, true)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, false, true)			
 		});
 		PieceFunctions.diagonalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($piece, direction, coordinates, true, false)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, true, false)			
 		});
 
 	},
@@ -100,10 +105,10 @@ PieceFunctions.highLightAvailableMoves = {
 		var $targetPiece;
 
 		PieceFunctions.cardinalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($piece, direction, coordinates)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)			
 		});
 		PieceFunctions.diagonalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($piece, direction, coordinates)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)			
 		});
 	},
 	knight: function($piece){
@@ -111,6 +116,45 @@ PieceFunctions.highLightAvailableMoves = {
 	},
 	bishop: function($piece){
 		console.log('moving like a bishop!!');
+
+		var coordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
+
+		var $targetSquare;
+		var $targetPiece;
+		var stillMoving;
+		var newCoordinates;
+
+		PieceFunctions.diagonalDirections.forEach(function(direction){
+			stillMoving = true;
+
+			newCoordinates = coordinates;
+
+			while(stillMoving){
+
+				
+				$targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates);
+
+				
+				stillMoving = !!$targetSquare
+
+				console.log('stillMoving')
+				console.log($targetSquare)
+				console.log(stillMoving)
+				console.log(direction)
+
+				if (stillMoving){
+					$targetSquare.css('border', 'solid 2px pink')
+				
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+				}
+				
+				//ok this now infinitely loops!
+			}
+
+
+
+		})
+
 	},
 	rook: function($piece){
 		console.log('moving like a rook!!');
