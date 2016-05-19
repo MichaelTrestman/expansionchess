@@ -1,9 +1,12 @@
 
 .square.movable {
-  background-color: rgba( 200, 200, 0,10);
+  background-color: blue;
+}
+.square.killable {
+  background-color: red;
 }
 .square.active-home-square {
-  background-color: rgba( 225, 0, 0,10);
+  background-color: gold;
 }
 
 .board {

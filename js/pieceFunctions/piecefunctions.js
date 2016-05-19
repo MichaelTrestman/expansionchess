@@ -7,13 +7,12 @@ PieceFunctions.getBoardPosition = function($el){
 	
 	if (!!$el) throw "no piece on board available!"
 
-
 }
-
 
 PieceFunctions.clearActiveSquares = function(){
 	$('div.active-home-square').removeClass('active-home-square');
 	$('div.movable').removeClass('movable');
+	$('div.killable').removeClass('killable');
 }
 
 
@@ -24,26 +23,55 @@ PieceFunctions.highlightOnlyHomeSpace = function($piece){
 
 
 PieceFunctions.activate = function($piece){
-  	
-  	PieceFunctions.highlightOnlyHomeSpace($piece);
 
-	
+	PieceFunctions.highlightOnlyHomeSpace($piece);
 
 	var side = $piece.data('side');
 	if (!side) throw "no side determined!"
-	var type = $piece.data('type');
+		var type = $piece.data('type');
 	if (!type) throw "no type determined!"
- 	
 
-	if (!PieceFunctions.highLightAvailableMoves[type]) throw "no moves available for this type!"
+	if (!PieceFunctions.highLightAvailableMoves[type]) throw "no moves available for this type!";
 
-  	PieceFunctions.highLightAvailableMoves[type]( $piece );
+	PieceFunctions.highLightAvailableMoves[type]( $piece );
+
+}
+
+PieceFunctions.friendlyPiece = function($targetPiece){ return false }
+PieceFunctions.trySquare = function($piece, direction, coordinates, killOnly = false, moveOnly = false){
+
+	$targetSquare = BoardFunctions.squareSelector[direction](coordinates);
+	
+	$targetPiece = $targetSquare.children('.piece')
+
+	if (PieceFunctions.friendlyPiece($targetPiece) ) return nil ;
+
+	var targetPiecePresent = !!$targetPiece[0] ;
+
+	
+	if (killOnly){
+		if (targetPiecePresent) {
+			$targetSquare.addClass('killable')
+		}
+		
+	} else if (moveOnly) {
+		if (!targetPiecePresent) {
+			$targetSquare.addClass('movable')
+		}
+	} else {
+		
+		if (targetPiecePresent) {
+			$targetSquare.addClass('killable')
+		} else {
+			$targetSquare.addClass('movable')
+		}
+	}
+
+}
 
 
-  }
-
-
-
+PieceFunctions.cardinalDirections = ['NorthOf', 'SouthOf', 'EastOf', 'WestOf'];
+PieceFunctions.diagonalDirections = ['NorthEastOf', 'SouthEastOf', 'NorthWestOf', 'SouthWestOf'];
 
 PieceFunctions.highLightAvailableMoves = {
 
@@ -55,55 +83,28 @@ PieceFunctions.highLightAvailableMoves = {
 		var $targetSquare;
 		var $targetPiece;
 
+		PieceFunctions.cardinalDirections.forEach(function(direction){
+					PieceFunctions.trySquare($piece, direction, coordinates, false, true)			
+		});
+		PieceFunctions.diagonalDirections.forEach(function(direction){
+					PieceFunctions.trySquare($piece, direction, coordinates, true, false)			
+		});
 
+	},
+	king: function($piece){
+		console.log('moving like a king!!');
 
-		$targetSquare = BoardFunctions.squareSelector.NorthOf(coordinates);
-		$targetPiece = $targetSquare.children('.piece')
-		
-		if (!$targetPiece[0]) $targetSquare.addClass('movable');
+		var coordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
 
-		
-		$targetSquare = BoardFunctions.squareSelector.SouthOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!$targetPiece[0]) $targetSquare.addClass('movable');
+		var $targetSquare;
+		var $targetPiece;
 
-		
-		$targetSquare = BoardFunctions.squareSelector.ToEastOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!$targetPiece[0]) $targetSquare.addClass('movable');
-
-		
-		$targetSquare = BoardFunctions.squareSelector.ToWestOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!$targetPiece[0]) $targetSquare.addClass('movable');
-
-
-		$targetSquare = BoardFunctions.squareSelector.NorthEastOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!!$targetPiece[0]) $targetPiece.parent('.square').addClass('movable');
-
-		
-		$targetSquare = BoardFunctions.squareSelector.SouthEastOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!!$targetPiece[0]) $targetPiece.parent('.square').addClass('movable');
-
-		
-		$targetSquare = BoardFunctions.squareSelector.ToNorthWestOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!!$targetPiece[0]) $targetPiece.parent('.square').addClass('movable');
-
-		
-		$targetSquare = BoardFunctions.squareSelector.ToSouthWestOf(coordinates);
-		
-		$targetPiece = $targetSquare.children('.piece')
-		if (!!$targetPiece[0]) $targetPiece.parent('.square').addClass('movable');
-
+		PieceFunctions.cardinalDirections.forEach(function(direction){
+					PieceFunctions.trySquare($piece, direction, coordinates)			
+		});
+		PieceFunctions.diagonalDirections.forEach(function(direction){
+					PieceFunctions.trySquare($piece, direction, coordinates)			
+		});
 	},
 	knight: function($piece){
 		console.log('moving like a knight!!');
@@ -116,23 +117,19 @@ PieceFunctions.highLightAvailableMoves = {
 	},
 	queen: function($piece){
 		console.log('moving like a queen!!');
-	},
-	king: function($piece){
-		console.log('moving like a king!!');
 	}
 }
-
 
 
 BoardFunctions.squareSelector = {
 	NorthOf: function(coordinates){  return $('.square[data-posx="' + (coordinates.x) + '"][data-posy="'+ (coordinates.y + 1) +'"]' ) },
 	SouthOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x) + '"][data-posy="'+ (coordinates.y - 1) +'"]' ) },
-	ToEastOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x + 1) + '"][data-posy="'+ (coordinates.y) +'"]' ) },
-	ToWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y) +'"]' )},
+	EastOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x + 1) + '"][data-posy="'+ (coordinates.y) +'"]' ) },
+	WestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y) +'"]' )},
 	NorthEastOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x + 1) + '"][data-posy="'+ (coordinates.y + 1) +'"]' )},
 	SouthEastOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x + 1) + '"][data-posy="'+ (coordinates.y - 1) +'"]' )},
-	ToNorthWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y + 1) +'"]' )},
-	ToSouthWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y - 1) +'"]' )}
+	NorthWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y + 1) +'"]' )},
+	SouthWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y - 1) +'"]' )}
 }
 
 
