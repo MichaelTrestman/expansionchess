@@ -42,6 +42,19 @@ PieceFunctions.friendlyPiece = function($targetPiece){ return false }
 
 PieceFunctions.trySquareDirectly = function(targetCoordinates){
 
+	var $targetSquare = $('.square[data-posx="' + (targetCoordinates.x) + '"][data-posy="'+ (targetCoordinates.y) +'"]' );
+	var	$targetPiece = $targetSquare.children('.piece');
+	if (PieceFunctions.friendlyPiece($targetPiece) ) return null ;
+	var targetPiecePresent = !!$targetPiece[0] ;
+	
+	if (targetPiecePresent) {
+		$targetSquare.addClass('killable')
+		return null;
+	} else {
+		$targetSquare.addClass('movable')
+		return $targetSquare;
+	}
+
 }
 
 PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates, killOnly = false, moveOnly = false){
@@ -169,6 +182,10 @@ PieceFunctions.highLightAvailableMoves = {
 			y: y-1 
 		}]
 
+
+		coordinatePairs.forEach(function(coords){
+			PieceFunctions.trySquareDirectly(coords);
+		})
 
 	},
 	bishop: function($piece){
