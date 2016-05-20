@@ -2,8 +2,12 @@
 .square.movable {
   background-color: blue;
 }
+
 .square.killable {
   background-color: red;
+}
+.square.movable:hover, .square.movable:hover {
+  background-color: pink;
 }
 .square.active-home-square {
   background-color: gold;

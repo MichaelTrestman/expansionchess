@@ -26,14 +26,16 @@ BoardFunctions.placePiece = function(type, side, $square){
 
 
   $piece.click(function(e){
+
     $thisPiece = $(e.target);
+    console.log($thisPiece)
     PieceFunctions.newPiece( $thisPiece );
     PieceFunctions.activate( $thisPiece );
-    
+
   })
 
 
-  PieceFunctions.clearActiveSquares()
+  PieceFunctions.clearActiveSquaresAndPieces()
   return $piece
 }
 
@@ -50,6 +52,9 @@ function isPieceClass(c){
 
 function drag(ev) {
 
+  var $piece = $(ev.target);
+  PieceFunctions.activate($piece);
+
   var pieceData = ev.target.dataset;
 
   if(!(pieceData.type == 'wall') ) {
@@ -65,6 +70,7 @@ function drag(ev) {
 
 
     // ev.originalEvent.dataTransfer.setDragImage( $(ev.target).clone().css('border', 'solid 10px pink')[0] ,50,50);
+
     ev.originalEvent.dataTransfer.setDragImage(img,50,50);
 
   }
@@ -84,8 +90,6 @@ function drop(ev) {
 
     var type = ev.originalEvent.dataTransfer.getData('piece-type');
 
-
-
     var oldPiecePosX = ev.originalEvent.dataTransfer.getData('piece-posX');
 
     var oldPiecePosY = ev.originalEvent.dataTransfer.getData('piece-posY');
@@ -94,18 +98,21 @@ function drop(ev) {
     oldPieceSelector += '[data-posX="' +  oldPiecePosX + '"]';
     oldPieceSelector += '[data-posY="' +  oldPiecePosY + '"]';
 
-    $(oldPieceSelector).remove();
+
+
 
     var $target = $(ev.target);
 
     if ($target.hasClass('piece')) {
       $target = $target.parent()
-
     }
 
     if (!$target.hasClass('square')) {
       throw 'Target is not square!'
     };
 
+    if ($target.hasClass('movable') || $target.hasClass('killable')) {
+    $(oldPieceSelector).remove();
     BoardFunctions.placePiece(type, side, $target)
+    };
 }

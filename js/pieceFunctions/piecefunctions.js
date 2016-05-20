@@ -4,12 +4,13 @@ PieceFunctions.getBoardPosition = function($el){
 
 
 	console.log('getBoardPosition')
-	
+
 	if (!!$el) throw "no piece on board available!"
 
 }
 
-PieceFunctions.clearActiveSquares = function(){
+PieceFunctions.clearActiveSquaresAndPieces = function(){
+	$('div.active').removeClass('active');
 	$('div.active-home-square').removeClass('active-home-square');
 	$('div.movable').removeClass('movable');
 	$('div.killable').removeClass('killable');
@@ -17,7 +18,7 @@ PieceFunctions.clearActiveSquares = function(){
 
 
 PieceFunctions.highlightOnlyHomeSpace = function($piece){
-	PieceFunctions.clearActiveSquares();
+	PieceFunctions.clearActiveSquaresAndPieces();
 	$piece.parent('.square').addClass('active-home-square')
 }
 
@@ -25,6 +26,7 @@ PieceFunctions.highlightOnlyHomeSpace = function($piece){
 PieceFunctions.activate = function($piece){
 
 	PieceFunctions.highlightOnlyHomeSpace($piece);
+	$piece.addClass('piece-active');
 
 	var side = $piece.data('side');
 	if (!side) throw "no side determined!"
@@ -37,7 +39,8 @@ PieceFunctions.activate = function($piece){
 
 }
 
-PieceFunctions.friendlyPiece = function($targetPiece){ return false }
+PieceFunctions.friendlyPiece = function($targetPiece){ return false
+}
 
 
 PieceFunctions.trySquareDirectly = function(targetCoordinates){
@@ -46,7 +49,7 @@ PieceFunctions.trySquareDirectly = function(targetCoordinates){
 	var	$targetPiece = $targetSquare.children('.piece');
 	if (PieceFunctions.friendlyPiece($targetPiece) ) return null ;
 	var targetPiecePresent = !!$targetPiece[0] ;
-	
+
 	if (targetPiecePresent) {
 		$targetSquare.addClass('killable')
 		return null;
@@ -64,27 +67,27 @@ PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates,
 		console.log($targetSquare);
 		throw 'baaarf'
 	}
-	
+
 	$targetPiece = $targetSquare.children('.piece')
 
 	if (PieceFunctions.friendlyPiece($targetPiece) ) return null ;
 
 	var targetPiecePresent = !!$targetPiece[0] ;
 
-	
+
 	if (killOnly){
 		if (targetPiecePresent) {
 			$targetSquare.addClass('killable');
 			return $targetSquare;
 		}
-		
+
 	} else if (moveOnly) {
 		if (!targetPiecePresent) {
 			$targetSquare.addClass('movable');
 			return $targetSquare;
 		}
 	} else {
-		
+
 		if (targetPiecePresent) {
 			$targetSquare.addClass('killable')
 			return null;
@@ -111,10 +114,10 @@ PieceFunctions.highLightAvailableMoves = {
 		var $targetPiece;
 
 		PieceFunctions.cardinalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, false, true)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, false, true)
 		});
 		PieceFunctions.diagonalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, true, false)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates, true, false)
 		});
 
 	},
@@ -127,10 +130,10 @@ PieceFunctions.highLightAvailableMoves = {
 		var $targetPiece;
 
 		PieceFunctions.cardinalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)
 		});
 		PieceFunctions.diagonalDirections.forEach(function(direction){
-					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)			
+					PieceFunctions.trySquare($targetSquare, $piece, direction, coordinates)
 		});
 	},
 	knight: function($piece){
@@ -144,42 +147,42 @@ PieceFunctions.highLightAvailableMoves = {
 		var y = origCoordinates.y;
 		var coordinatePairs = [{
 			x: x-1,
-			y: y+2 
+			y: y+2
 		},
 
 		{
 			x: x+1,
-			y: y+2 
+			y: y+2
 		},
-		
+
 		{
 			x: x+1,
-			y: y-2 
+			y: y-2
 		},
 
 		{
 			x: x-1,
-			y: y-2 
+			y: y-2
 		},
 
 		{
 			x: x-2,
-			y: y+1 
+			y: y+1
 		},
 
 		{
 			x: x+2,
-			y: y+1 
+			y: y+1
 		},
-		
+
 		{
 			x: x+2,
-			y: y-1 
+			y: y-1
 		},
 
 		{
 			x: x-2,
-			y: y-1 
+			y: y-1
 		}]
 
 
@@ -206,10 +209,10 @@ PieceFunctions.highLightAvailableMoves = {
 
 			while(stillMoving){
 
-				
+
 				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
 
-				
+
 				stillMoving = !!($targetSquare[0])
 
 				console.log('stillMoving')
@@ -218,9 +221,9 @@ PieceFunctions.highLightAvailableMoves = {
 				console.log(direction)
 
 				if (stillMoving){
-					
-				
-					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+
+
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };
 				}
 			}
 		})
@@ -243,10 +246,10 @@ PieceFunctions.highLightAvailableMoves = {
 
 			while(stillMoving){
 
-				
+
 				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
 
-				
+
 				stillMoving = !!($targetSquare[0])
 
 				console.log('stillMoving')
@@ -255,9 +258,9 @@ PieceFunctions.highLightAvailableMoves = {
 				console.log(direction)
 
 				if (stillMoving){
-					
-				
-					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+
+
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };
 				}
 			}
 		})
@@ -283,10 +286,10 @@ PieceFunctions.highLightAvailableMoves = {
 
 			while(stillMoving){
 
-				
+
 				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
 
-				
+
 				stillMoving = !!($targetSquare[0])
 
 				console.log('stillMoving')
@@ -295,9 +298,9 @@ PieceFunctions.highLightAvailableMoves = {
 				console.log(direction)
 
 				if (stillMoving){
-					
-				
-					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+
+
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };
 				}
 			}
 		})
