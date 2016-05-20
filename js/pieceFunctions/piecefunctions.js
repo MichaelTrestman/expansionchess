@@ -42,6 +42,10 @@ PieceFunctions.friendlyPiece = function($targetPiece){ return false }
 PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates, killOnly = false, moveOnly = false){
 
 	$targetSquare = BoardFunctions.squareSelector[direction](coordinates);
+	if (!$targetSquare) {
+		console.log($targetSquare);
+		throw 'baaarf'
+	}
 	
 	$targetPiece = $targetSquare.children('.piece')
 
@@ -117,25 +121,26 @@ PieceFunctions.highLightAvailableMoves = {
 	bishop: function($piece){
 		console.log('moving like a bishop!!');
 
-		var coordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
+		var origCoordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
 
-		var $targetSquare;
+		var $origSquare;
 		var $targetPiece;
 		var stillMoving;
 		var newCoordinates;
 
 		PieceFunctions.diagonalDirections.forEach(function(direction){
+			var $this
 			stillMoving = true;
 
-			newCoordinates = coordinates;
+			newCoordinates = origCoordinates;
 
 			while(stillMoving){
 
 				
-				$targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates);
+				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
 
 				
-				stillMoving = !!$targetSquare
+				stillMoving = !!($targetSquare[0])
 
 				console.log('stillMoving')
 				console.log($targetSquare)
@@ -147,17 +152,48 @@ PieceFunctions.highLightAvailableMoves = {
 				
 					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
 				}
-				
-				//ok this now infinitely loops!
 			}
-
-
-
 		})
 
 	},
 	rook: function($piece){
 		console.log('moving like a rook!!');
+		var origCoordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
+
+		var $origSquare;
+		var $targetPiece;
+		var stillMoving;
+		var newCoordinates;
+
+		PieceFunctions.cardinalDirections.forEach(function(direction){
+			var $this
+			stillMoving = true;
+
+			newCoordinates = origCoordinates;
+
+			while(stillMoving){
+
+				
+				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
+
+				
+				stillMoving = !!($targetSquare[0])
+
+				console.log('stillMoving')
+				console.log($targetSquare)
+				console.log(stillMoving)
+				console.log(direction)
+
+				if (stillMoving){
+					$targetSquare.css('border', 'solid 2px pink')
+				
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+				}
+			}
+		})
+
+
+
 	},
 	queen: function($piece){
 		console.log('moving like a queen!!');
