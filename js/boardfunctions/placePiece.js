@@ -6,7 +6,7 @@ BoardFunctions.placePiece = function(type, side, $square){
     .addClass('piece')
     .addClass('piece-' + type)
     .addClass('side-' + side)
-    .attr('draggable', 'true')
+    .attr('draggable', 'false')
     .attr('data-type', type)
     .attr('data-side', side)
     .attr('data-posX', $square[0].dataset.posx)
