@@ -148,7 +148,7 @@ PieceFunctions.highLightAvailableMoves = {
 				console.log(direction)
 
 				if (stillMoving){
-					$targetSquare.css('border', 'solid 2px pink')
+					
 				
 					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
 				}
@@ -185,7 +185,7 @@ PieceFunctions.highLightAvailableMoves = {
 				console.log(direction)
 
 				if (stillMoving){
-					$targetSquare.css('border', 'solid 2px pink')
+					
 				
 					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
 				}
@@ -197,6 +197,40 @@ PieceFunctions.highLightAvailableMoves = {
 	},
 	queen: function($piece){
 		console.log('moving like a queen!!');
+		var origCoordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
+
+		var $origSquare;
+		var $targetPiece;
+		var stillMoving;
+		var newCoordinates;
+		var allDirections = PieceFunctions.diagonalDirections.concat(PieceFunctions.cardinalDirections);
+		console.log(PieceFunctions.diagonalDirections)
+		allDirections.forEach(function(direction){
+			var $this
+			stillMoving = true;
+
+			newCoordinates = origCoordinates;
+
+			while(stillMoving){
+
+				
+				var $targetSquare = PieceFunctions.trySquare(1,1,direction,newCoordinates)||[];
+
+				
+				stillMoving = !!($targetSquare[0])
+
+				console.log('stillMoving')
+				console.log($targetSquare)
+				console.log(stillMoving)
+				console.log(direction)
+
+				if (stillMoving){
+					
+				
+					newCoordinates = { x: $targetSquare.data('posx'), y: $targetSquare.data('posy') };	
+				}
+			}
+		})
 	}
 }
 
