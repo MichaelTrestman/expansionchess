@@ -39,6 +39,11 @@ PieceFunctions.activate = function($piece){
 
 PieceFunctions.friendlyPiece = function($targetPiece){ return false }
 
+
+PieceFunctions.trySquareDirectly = function(targetCoordinates){
+
+}
+
 PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates, killOnly = false, moveOnly = false){
 
 	$targetSquare = BoardFunctions.squareSelector[direction](coordinates);
@@ -49,7 +54,7 @@ PieceFunctions.trySquare = function($origSquare, $piece, direction, coordinates,
 	
 	$targetPiece = $targetSquare.children('.piece')
 
-	if (PieceFunctions.friendlyPiece($targetPiece) ) return nil ;
+	if (PieceFunctions.friendlyPiece($targetPiece) ) return null ;
 
 	var targetPiecePresent = !!$targetPiece[0] ;
 
@@ -117,6 +122,54 @@ PieceFunctions.highLightAvailableMoves = {
 	},
 	knight: function($piece){
 		console.log('moving like a knight!!');
+
+		var origCoordinates = { x: $piece.data('posx'), y: $piece.data('posy') };
+
+		var $targetSquare;
+		var $targetPiece;
+		var x = origCoordinates.x;
+		var y = origCoordinates.y;
+		var coordinatePairs = [{
+			x: x-1,
+			y: y+2 
+		},
+
+		{
+			x: x+1,
+			y: y+2 
+		},
+		
+		{
+			x: x+1,
+			y: y-2 
+		},
+
+		{
+			x: x-1,
+			y: y-2 
+		},
+
+		{
+			x: x-2,
+			y: y+1 
+		},
+
+		{
+			x: x+2,
+			y: y+1 
+		},
+		
+		{
+			x: x+2,
+			y: y-1 
+		},
+
+		{
+			x: x-2,
+			y: y-1 
+		}]
+
+
 	},
 	bishop: function($piece){
 		console.log('moving like a bishop!!');
