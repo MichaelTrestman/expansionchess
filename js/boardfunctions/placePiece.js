@@ -27,18 +27,67 @@ BoardFunctions.placePiece = function(type, side, $square){
 
   $piece.click(function(e){
 
-    $thisPiece = $(e.target);
-    console.log($thisPiece)
-    PieceFunctions.newPiece( $thisPiece );
-    PieceFunctions.activate( $thisPiece );
 
+    var $thisPiece = $(e.target);
+
+    var $activePiece = $('.piece-active');
+
+    if ($thisPiece.data('side') == BoardFunctions.turn){
+      PieceFunctions.activate( $thisPiece );
+    } else if ($activePiece.length > 0){
+      drop(e);
+    }
   })
 
-
   PieceFunctions.clearActiveSquaresAndPieces()
+  BoardFunctions.turn = ( side == 'white' ) ? 'black' : 'white';
   return $piece
 }
 
+
+
+
+function drop(ev) {
+
+
+    ev.preventDefault();
+
+    if (!!ev.originalEvent ){
+
+    var side = ev.originalEvent.dataTransfer.getData('piece-side');
+
+    var type = ev.originalEvent.dataTransfer.getData('piece-type');
+
+    var oldPiecePosX = ev.originalEvent.dataTransfer.getData('piece-posX');
+
+    var oldPiecePosY = ev.originalEvent.dataTransfer.getData('piece-posY');
+
+    var oldPieceSelector = '.piece';
+    oldPieceSelector += '[data-posX="' +  oldPiecePosX + '"]';
+    oldPieceSelector += '[data-posY="' +  oldPiecePosY + '"]';
+
+
+
+    }
+
+
+
+
+    var $target = $(ev.target);
+
+    if ($target.hasClass('piece')) {
+      $target = $target.parent()
+    }
+
+    if (!$target.hasClass('square')) {
+      throw 'Target is not square!'
+    };
+
+    if ($target.hasClass('movable') || $target.hasClass('killable')) {
+    $(oldPieceSelector).remove();
+    BoardFunctions.placePiece(type, side, $target)
+    };
+}
 
 
 
@@ -53,6 +102,11 @@ function isPieceClass(c){
 function drag(ev) {
 
   var $piece = $(ev.target);
+
+  if (!$piece.data('side') == BoardFunctions.turn){
+    return null;
+  }
+
   PieceFunctions.activate($piece);
 
   var pieceData = ev.target.dataset;
@@ -83,36 +137,3 @@ function drag(ev) {
   ev.originalEvent.dataTransfer.setData('piece-posY', pieceData.posy);
 }
 
-function drop(ev) {
-    ev.preventDefault();
-
-    var side = ev.originalEvent.dataTransfer.getData('piece-side');
-
-    var type = ev.originalEvent.dataTransfer.getData('piece-type');
-
-    var oldPiecePosX = ev.originalEvent.dataTransfer.getData('piece-posX');
-
-    var oldPiecePosY = ev.originalEvent.dataTransfer.getData('piece-posY');
-
-    var oldPieceSelector = '.piece';
-    oldPieceSelector += '[data-posX="' +  oldPiecePosX + '"]';
-    oldPieceSelector += '[data-posY="' +  oldPiecePosY + '"]';
-
-
-
-
-    var $target = $(ev.target);
-
-    if ($target.hasClass('piece')) {
-      $target = $target.parent()
-    }
-
-    if (!$target.hasClass('square')) {
-      throw 'Target is not square!'
-    };
-
-    if ($target.hasClass('movable') || $target.hasClass('killable')) {
-    $(oldPieceSelector).remove();
-    BoardFunctions.placePiece(type, side, $target)
-    };
-}

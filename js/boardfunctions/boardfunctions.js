@@ -32,5 +32,6 @@ BoardFunctions.squareClick = function(e){
 
 }
 
+BoardFunctions.turn = 'white';
 
 

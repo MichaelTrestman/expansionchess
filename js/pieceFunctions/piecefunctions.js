@@ -11,6 +11,7 @@ PieceFunctions.getBoardPosition = function($el){
 
 PieceFunctions.clearActiveSquaresAndPieces = function(){
 	$('div.active').removeClass('active');
+	$('div.piece-active').removeClass('piece-active');
 	$('div.active-home-square').removeClass('active-home-square');
 	$('div.movable').removeClass('movable');
 	$('div.killable').removeClass('killable');
@@ -39,7 +40,28 @@ PieceFunctions.activate = function($piece){
 
 }
 
-PieceFunctions.friendlyPiece = function($targetPiece){ return false
+PieceFunctions.friendlyPiece = function($targetPiece){
+	console.log('friendly piece???')
+
+	console.log('$targetPiece')
+	console.log($targetPiece)
+
+
+	console.log("$('.piece-active')")
+	console.log($('.piece-active'))
+
+
+	console.log("$('.piece-active').data('side')")
+	console.log($('.piece-active').data('side'))
+
+	console.log("$targetPiece.data('side')")
+	console.log($targetPiece.data('side'))
+
+	if ($('.piece-active').length > 0){
+		return $('.piece-active').data('side') == $targetPiece.data('side');
+	}
+
+	return false;
 }
 
 

@@ -1,10 +1,10 @@
 
 .square.movable {
-  background-color: blue;
+  background: linear-gradient(blue, green);
 }
 
 .square.killable {
-  background-color: red;
+  background: linear-gradient(red, yellow);
 }
 .square.movable:hover, .square.movable:hover {
   background-color: pink;
