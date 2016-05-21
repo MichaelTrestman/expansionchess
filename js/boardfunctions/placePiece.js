@@ -6,13 +6,14 @@ BoardFunctions.placePiece = function(type, side, $square){
     .addClass('piece')
     .addClass('piece-' + type)
     .addClass('side-' + side)
-    .attr('draggable', 'true')
+    .attr('draggable', 'false')
     .attr('data-type', type)
     .attr('data-side', side)
     .attr('data-posX', $square[0].dataset.posx)
     .attr('data-posY', $square[0].dataset.posy)
     .css('transform', pieceRotation)
-    .on('dragstart', drag);
+    .on('dragstart', drag)
+    .on('click', PieceFunctions.handleClick);
 
   if ($square.hasClass('square')) {
     $square.children('.piece').remove();
@@ -24,6 +25,28 @@ BoardFunctions.placePiece = function(type, side, $square){
 
   $square.append(piece);
   return piece
+}
+
+PieceFunctions.handleClick = function(e){
+
+  var $targetPiece = $(e.target);
+
+  // if target is on a square (i.e. on the board), do nothing;
+
+  if ( $targetPiece.parent('.square').length > 0 ) return;
+
+  if(  !($targetPiece.hasClass('piece')) ) throw 'this thing is not even a piece!'
+
+  PieceFunctions.setAsPieceToPlace($targetPiece)
+
+}
+
+PieceFunctions.setAsPieceToPlace = function($piece){
+  var side = $piece.data('side');
+  var type = $piece.data('type');
+  BoardFunctions.pieceToPlace = {side: side, type: type}
+  console.log(BoardFunctions.pieceToPlace)
+
 }
 
 

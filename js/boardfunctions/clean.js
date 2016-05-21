@@ -7,14 +7,11 @@ BoardFunctions.clean = function(args={}){
   if (!!args.height) config.height = args.height;
   if (!!args.width) config.width = args.width;
 
-
   config = this.config;
 
   if ( !!args.height && !!args.width){
     config = args
   }
-
-
 
   containerDiv = this.containerDiv;
 
@@ -51,7 +48,8 @@ BoardFunctions.clean = function(args={}){
         .attr('data-posX', j)
         .attr('data-posY', i)
         .on('drop', drop)
-        .on('dragover', allowDrop);
+        .on('dragover', allowDrop)
+        .on('click', BoardFunctions.editorBoardClick);
 
       thisRow.append(thisSquare);
 
@@ -63,4 +61,21 @@ BoardFunctions.clean = function(args={}){
   };
 
   return this
+}
+BoardFunctions.editorBoardClick = function(e){
+
+  var $target = $(e.target)
+
+  $square = $target.hasClass('square') ? $target : $target.parent('.square');
+
+  if ($square.length != 1) throw 'no unique square found'
+    console.log('BoardFunctions.pieceToPlace')
+    console.log(BoardFunctions.pieceToPlace)
+
+  if (!!BoardFunctions.pieceToPlace){
+    var side = BoardFunctions.pieceToPlace.side;
+    var type = BoardFunctions.pieceToPlace.type;
+    BoardFunctions.placePiece(type, side, $square);
+  }
+
 }
