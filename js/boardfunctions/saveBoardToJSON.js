@@ -22,6 +22,7 @@ BoardFunctions.saveBoardToJSON = function(){
 BoardFunctions.loadBoardFromJSON = function(boardJSON){
   var board = JSON.parse(boardJSON);
   var pieces = board.pieces;
+  var upgradeSpaces = board.upgradeSpaces;
 
   BoardFunctions.clearBoard();
 
@@ -34,17 +35,18 @@ BoardFunctions.loadBoardFromJSON = function(boardJSON){
     var targetSquareSelector = '.square[data-posx="' + piece.posx + '"][data-posy="' + piece.posy +'"]';
 
     var $targetSquare = $(targetSquareSelector);
-    // console.log('targetSquare selector:')
-    // console.log(targetSquareSelector);
-
-    // console.log('$targetSquare')
-    // console.log($targetSquare)
 
     BoardFunctions.placePiece(piece.type, piece.side, $targetSquare);
 
   })
 
+  upgradeSpaces.forEach(function(upgradeSpace){
+        var upgradeSpaceSelector = '.square[data-posx="' + upgradeSpace.posx + '"][data-posy="' + upgradeSpace.posy +'"]';
+
+  })
+
 }
+
 BoardFunctions.clearBoard = function(){
   $('#board').empty();
 }
