@@ -14,9 +14,9 @@
   <script type="text/javascript" src="js/pieceFunctions/newPiece.js"></script>
 
   <script type="text/javascript" src="js/boardFunctions/placePiece.js"></script>
-  
+
   <script type="text/javascript" src="js/boardFunctions/squareClick.js"></script>
-  
+
   <script type="text/javascript" src="js/pieceFunctions/activate.js"></script>
   <link rel="stylesheet" type="text/css" href="css/chessboard.css" />
 
@@ -68,12 +68,19 @@
     </script>
 
     <div class='turn-display'><h1>Start Game!</h1></div>
+    <div id='edit-button' class='edit-button'><h1>Edit</h1></div>
     <div id="board" class="board"></div>
 
     <script type="text/javascript">
 
       $('.turn-display').on('click', function(e){
         BoardFunctions.changeTurn();
+        $(e.target).off('click');
+      })
+
+      $('#edit-button').on('click', function(e){
+        BoardFunctions.setTurn('edit');
+        BoardFunctions.editing = !!!BoardFunctions.editing;
         $(e.target).off('click');
       })
 
@@ -87,6 +94,7 @@
 
 
       pieceList.forEach(function(piece){
+
         newPiece = BoardFunctions.placePiece(piece, 'white', piecePickerWhite);
         $(newPiece).addClass('picker-piece');
 
@@ -97,6 +105,20 @@
 
       newPiece = BoardFunctions.placePiece('wall', 'null', piecePickerBlack);
       $(newPiece).addClass('picker-piece');
+
+      $('div.piecker-piece').click(function (e) {
+
+        var side = e.target.dataset.side;
+        var type = e.target.dataset.type;
+
+        PieceFunctions.pieceToPlace = {
+          side: side,
+          type: type
+        }
+
+        $pickerPiece = $(e.target);
+
+      })
 
       </script>
       <script type="text/javascript">

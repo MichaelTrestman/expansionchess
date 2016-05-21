@@ -1,7 +1,8 @@
-BoardFunctions.squareClick = function(e){  
-    
+BoardFunctions.squareClick = function(e){
+
     var $square;
     var $target = $(e.target);
+
 
     if ( $target.hasClass('square') ){
         $square = $target;
@@ -12,13 +13,20 @@ BoardFunctions.squareClick = function(e){
         }
     }
 
+    if (BoardFunctions.editing){
+        if(!!PieceFunctions.pieceToPlace){
+            BoardFunctions.placePiece(type, side, $square);
+        }
+    }
+
+
     var isAWall,
         canGoHere,
         aPieceIsActive,
         aPieceIsHere;
 
     $occupyingPiece = $square.children('.piece');
-    
+
     aPieceIsHere = $occupyingPiece.length > 0;
 
     if ($occupyingPiece.length > 1) throw "more than one piece in the clicked square, wtf!"
@@ -33,14 +41,14 @@ BoardFunctions.squareClick = function(e){
 
 
     var thisPiecesTurn = BoardFunctions.turn == $occupyingPiece.data('side');
-    if(thisPiecesTurn){
+    if(thisPiecesTurn && !BoardFunctions.editing){
         PieceFunctions.activate($occupyingPiece);
         return;
     }
 
 
 
-    canGoHere = $square.hasClass('movable') || $square.hasClass('killable');    
+    canGoHere = $square.hasClass('movable') || $square.hasClass('killable');
     $activePiece = $('.piece-active');
 
     aPieceIsActive = $activePiece.length > 0;

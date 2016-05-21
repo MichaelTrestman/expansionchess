@@ -313,7 +313,6 @@ BoardFunctions.squareSelector = {
 	SouthWestOf: function(coordinates){ return $('.square[data-posx="' + (coordinates.x - 1) + '"][data-posy="'+ (coordinates.y - 1) +'"]' )}
 }
 
-
 PieceFunctions.movePiece = function($activePiece, $square){
     var side = $activePiece.data('side');
     var type = $activePiece.data('type');
