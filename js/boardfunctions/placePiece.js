@@ -13,6 +13,15 @@ BoardFunctions.placePiece = function(type, side, $square){
     .attr('data-posY', $square[0].dataset.posy)
     .css('transform', pieceRotation);
 
+
+  if (   !($piece.data('type')=='wall')  ){
+    var img = $('<svg class="piece-image" src="img/chesspieces/' + type + '.svg"></svg>');
+  img.css('fill', 'blue');
+
+  $piece.append(img)
+  }
+
+
   if ($square.hasClass('square')) {
     $square.children('.piece').remove();
   } else if ($square.hasClass('pieces-picker')){

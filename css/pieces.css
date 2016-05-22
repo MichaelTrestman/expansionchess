@@ -16,9 +16,11 @@
 }
 
 .side-white.piece-pawn {
-  background-image: url('../img/chesspieces/wikipedia/wP.png');
-  background-size: 30px 30px;
-  background-repeat: no-repeat;
+  /*background-image: url('../img/chesspieces/wikipedia/wP.png');
+  background-image: url('../img/chesspieces/pawn.svg');*/
+  /*background-color: white;*/
+  /*background-size: 30px 30px;*/
+  /*background-repeat: no-repeat;*/
 }
 
 
