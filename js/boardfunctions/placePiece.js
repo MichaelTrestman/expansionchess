@@ -2,6 +2,7 @@ BoardFunctions.placePiece = function(type, side, $square){
 
   var pieceRotation = 'rotate(' + String(0 - BoardFunctions.currentBoardRotation) + 'deg)'
 
+
   var $piece = $("<div></div>")
     .addClass('piece')
     .addClass('piece-' + type)
@@ -14,12 +15,24 @@ BoardFunctions.placePiece = function(type, side, $square){
     .css('transform', pieceRotation);
 
 
-  if (   !($piece.data('type')=='wall')  ){
-    var img = $('<svg class="piece-image" src="img/chesspieces/' + type + '.svg"></svg>');
-  img.css('fill', 'blue');
+  var svgText = PieceFunctions.pieceSvg[type] || PieceFunctions.pieceSvg.pawn;
 
-  $piece.append(img)
-  }
+  var $svg = $(svgText)
+    .attr('height', '40px')
+    .attr('width', '40px');
+
+  console.log('$svg')
+  console.log($svg)
+
+  var $paths = $svg.find('path');
+  $paths.attr('fill', side)
+
+  console.log('$paths');
+  console.log($paths);
+
+
+  $piece.append($svg)
+
 
 
   if ($square.hasClass('square')) {
