@@ -22,7 +22,7 @@ BoardFunctions.saveBoardToJSON = function(){
 BoardFunctions.loadBoardFromJSON = function(boardJSON){
   var board = JSON.parse(boardJSON);
   var pieces = board.pieces;
-  var upgradeSpaces = board.upgradeSpaces;
+  var upgradeSpaces = board.upgradeSpaces || [];
 
   BoardFunctions.clearBoard();
 
