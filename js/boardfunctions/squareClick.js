@@ -7,8 +7,10 @@ BoardFunctions.squareClick = function(e){
     if ( $target.hasClass('square') ){
         $square = $target;
     } else {
-        $square = $target.parent('.square');
+        $square = $target.parents('.square');
         if ($square.length != 1){
+            console.log('$square');
+            console.log($square);
             throw 'no unique square found on click!'
         }
     }
