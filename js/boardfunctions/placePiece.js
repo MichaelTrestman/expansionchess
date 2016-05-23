@@ -21,14 +21,8 @@ BoardFunctions.placePiece = function(type, side, $square){
     .attr('height', '40px')
     .attr('width', '40px');
 
-  console.log('$svg')
-  console.log($svg)
-
   var $paths = $svg.find('path');
   $paths.attr('fill', side)
-
-  console.log('$paths');
-  console.log($paths);
 
 
   $piece.append($svg)
