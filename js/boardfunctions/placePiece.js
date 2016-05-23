@@ -15,7 +15,7 @@ BoardFunctions.placePiece = function(type, side, $square){
     .css('transform', pieceRotation);
 
 
-  var svgText = PieceFunctions.pieceSvg[type] || PieceFunctions.pieceSvg.pawn;
+  var svgText = PieceFunctions.pieceSvg[type];
 
   var $svg = $(svgText)
     .attr('height', '40px')
