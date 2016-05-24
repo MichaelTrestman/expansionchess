@@ -317,6 +317,11 @@ PieceFunctions.movePiece = function($activePiece, $square){
     var side = $activePiece.data('side');
     var type = $activePiece.data('type');
 
+
+    if ($square.hasClass('square-upgrade') && type == 'pawn' ){
+    	type = 'queen'
+    }
+
     $activePiece.remove();
     BoardFunctions.placePiece(type, side, $square)
     PieceFunctions.clearActiveSquaresAndPieces();
