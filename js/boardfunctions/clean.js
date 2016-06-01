@@ -75,7 +75,15 @@ BoardFunctions.editorBoardClick = function(e){
   if (!!BoardFunctions.pieceToPlace){
     var side = BoardFunctions.pieceToPlace.side;
     var type = BoardFunctions.pieceToPlace.type;
+
+    if (type=='upgradeSquare'){
+
+      $square.addClass('square-upgrade');
+      // BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: null}  
+      return;
+    }
     BoardFunctions.placePiece(type, side, $square);
+
   }
 
 }

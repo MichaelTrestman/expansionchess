@@ -103,11 +103,70 @@
         var $board = $('#board').css('transform', boardRotation);
         var $piecesOnBoardSquares = $('.square .piece').css('transform', onBoardPiecesRotation);
       }
+
+      BoardFunctions.pieceToPlace = {}
       $(document).on('keypress', function(e){
+
         console.log(e.keyCode);
-        if (e.keyCode == 114) {
-          BoardFunctions.rotateBoard();
-        }
+
+        switch (e.keyCode) {
+          case 114:
+            BoardFunctions.rotateBoard();
+            break;
+
+          case 81:
+            BoardFunctions.pieceToPlace = {side: 'red', type: BoardFunctions.pieceToPlace.type}
+            console.log('red')
+            break;
+          case 66:
+            BoardFunctions.pieceToPlace = {side: 'blue', type: BoardFunctions.pieceToPlace.type}
+            console.log('blue')
+            break;
+          case 87:
+            BoardFunctions.pieceToPlace = {side: 'white', type: BoardFunctions.pieceToPlace.type}
+            console.log('white')
+            break;
+          case 75:
+            BoardFunctions.pieceToPlace = {side: 'black', type: BoardFunctions.pieceToPlace.type}
+            console.log('black')
+            break;
+          case 49:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'pawn'}
+            console.log('pawn')
+            break;
+          case 50:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'knight'}
+            console.log('knight')
+            break;
+          case 51:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'bishop'}
+            console.log('bishop')
+            break;
+          case 52:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'rook'}
+            console.log('rook')
+            break;
+          case 53:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'queen'}
+            console.log('queen')
+            break;
+          case 54:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'king'}
+            console.log('king')
+            break;
+          case 55:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'wall'}
+            console.log('wall')
+            break;
+          case 85:
+            BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: 'upgradeSquare'}
+            console.log('upgrade')
+            break;
+
+        } 
+
+
+
       })
 
     </script>

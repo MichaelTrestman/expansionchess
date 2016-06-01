@@ -24,3 +24,10 @@
 .square-light {
   background-color: darkgray;
 }
+
+.square-upgrade.square-dark {
+  background-color: lightgreen;
+}
+.square-upgrade.square-light {
+  background-color: green;
+}
