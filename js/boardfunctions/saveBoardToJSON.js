@@ -19,11 +19,12 @@ BoardFunctions.saveBoardToJSON = function(){
 
   var $upgradeSquares = $('.square-upgrade');
   board.upgradeSquares = $.map($upgradeSquares, function($square,i){
+    
     return {
-      posx: $square[0].dataset.posx,
-      posy: $square[0].dataset.posy,
-      type: $square[0].dataset.type,
-      side: $square[0].dataset.side
+      posx: $square.dataset.posx,
+      posy: $square.dataset.posy,
+      type: $square.dataset.type,
+      side: $square.dataset.side
     }
   })
 
