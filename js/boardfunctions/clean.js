@@ -82,6 +82,11 @@ BoardFunctions.editorBoardClick = function(e){
       // BoardFunctions.pieceToPlace = {side: BoardFunctions.pieceToPlace.side, type: null}  
       return;
     }
+    if (type=='delete'){
+      $square.removeClass('square-upgrade');
+      $square.empty();
+    }
+
     BoardFunctions.placePiece(type, side, $square);
 
   }

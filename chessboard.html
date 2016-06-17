@@ -113,7 +113,8 @@
           case 114:
             BoardFunctions.rotateBoard();
             break;
-
+          case 88:
+            BoardFunctions.pieceToPlace = {side: 'none', type: 'delete'}
           case 81:
             BoardFunctions.pieceToPlace = {side: 'red', type: BoardFunctions.pieceToPlace.type}
             console.log('red')
