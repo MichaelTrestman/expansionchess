@@ -76,6 +76,7 @@ BoardFunctions.editorBoardClick = function(e){
     var side = BoardFunctions.pieceToPlace.side;
     var type = BoardFunctions.pieceToPlace.type;
 
+
     if (type=='upgradeSquare'){
 
       $square.addClass('square-upgrade');
@@ -85,6 +86,7 @@ BoardFunctions.editorBoardClick = function(e){
     if (type=='delete'){
       $square.removeClass('square-upgrade');
       $square.empty();
+      return;
     }
 
     BoardFunctions.placePiece(type, side, $square);
